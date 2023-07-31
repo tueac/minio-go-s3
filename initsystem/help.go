@@ -29,7 +29,7 @@ func Help() {
 }
 
 func printHelp() {
-	fmt.Println("https://missyou.love\n")
+	fmt.Println("https://missyou.love")
 	fmt.Println("usage: [-v] [bucket] [object]")
 	fmt.Println("\nAvailable Commands:")
 	fmt.Println(" <subcommand>")
@@ -42,11 +42,11 @@ func printHelp() {
 	fmt.Println("  object download   Download object files")
 	fmt.Println("  object get        Get(download) bucket files")
 	fmt.Println("  object put        Put object files")
-	fmt.Println("  object putdit     Put object directory")
+	fmt.Println("  object putdir     Put object directory")
 	fmt.Println("\nFlags:")
 	flag.PrintDefaults()
 }
 
 func showVersion() {
-	fmt.Println("version: 0.1")
+	fmt.Println(Version)
 }

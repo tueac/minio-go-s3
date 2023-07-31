@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"minio/bucket"
 	"minio/object"
 	"os"
@@ -10,6 +11,11 @@ func Option() {
 	args := os.Args
 
 	if len(args) < 10 && args[1] == "bucket" {
+		if len(os.Args) < 3 {
+			fmt.Println("请输入 bucket 相关命令，参照 -h 命令")
+			return
+		}
+
 		if args[2] == "create" {
 			bucket.CreateBucket()
 			return
@@ -32,6 +38,10 @@ func Option() {
 	}
 
 	if len(args) < 10 && args[1] == "object" {
+		if len(os.Args) < 3 {
+			fmt.Println("请输入 object 相关命令，参照 -h 命令")
+			return
+		}
 
 		if args[2] == "delete" {
 			object.DeleteObject()
@@ -54,15 +64,15 @@ func Option() {
 			return
 		}
 
+		if args[2] == "putdir" {
+			object.PutDir()
+			return
+		}
+
 		if args[2] == "put" {
 			object.Putobject()
 			return
 		}
 
-		if args[2] == "putdir" {
-			object.PutDir()
-			return
-		}
 	}
-
 }

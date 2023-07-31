@@ -10,13 +10,18 @@ import (
 )
 
 func CreateBucket() {
-	bucketname := os.Args[3]
+	if len(os.Args) < 4 {
+		fmt.Println("请输入 bucket 的名称")
+		return
+	}
 
-	err := initsystem.InitClient().MakeBucket(context.Background(), bucketname, minio.MakeBucketOptions{
+	bucketName := os.Args[3]
+
+	err := initsystem.InitClient().MakeBucket(context.Background(), bucketName, minio.MakeBucketOptions{
 		Region:        "",
 		ObjectLocking: false,
 	})
 	checkerror.CheckCodeError(err)
 
-	fmt.Printf("%s 创建成功\n", bucketname)
+	fmt.Printf("%s 创建成功\n", bucketName)
 }

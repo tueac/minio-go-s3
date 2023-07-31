@@ -12,9 +12,17 @@ import (
 
 // get 下载文件
 func GetObject() {
-	bucketname, filename := os.Args[3], os.Args[4]
+	if len(os.Args) < 4 {
+		fmt.Println("请输入 bucket 的名称与 object 的名称")
+		return
+	} else if len(os.Args) < 5 {
+		fmt.Println("请输入 object 的名称")
+		return
+	}
 
-	object, err := initsystem.InitClient().GetObject(context.Background(), bucketname, filename, minio.GetObjectOptions{})
+	bucketName, fileName := os.Args[3], os.Args[4]
+
+	object, err := initsystem.InitClient().GetObject(context.Background(), bucketName, fileName, minio.GetObjectOptions{})
 	checkerror.CheckCodeError(err)
 	defer object.Close()
 

@@ -11,11 +11,16 @@ import (
 )
 
 func DeleteAll() {
-	bucketname := os.Args[3]
-	fmt.Println(bucketname)
+	if len(os.Args) < 4 {
+		fmt.Println("请输入 bucket 的名称")
+		return
+	}
+
+	bucketName := os.Args[3]
+	fmt.Println(bucketName)
 
 	// 获取存储桶中的所有对象
-	objectsCh := initsystem.InitClient().ListObjects(context.Background(), bucketname, minio.ListObjectsOptions{
+	objectsCh := initsystem.InitClient().ListObjects(context.Background(), bucketName, minio.ListObjectsOptions{
 		Recursive: true,
 	})
 
@@ -27,7 +32,7 @@ func DeleteAll() {
 		}
 
 		// 删除对象
-		err := initsystem.InitClient().RemoveObject(context.Background(), bucketname, object.Key, minio.RemoveObjectOptions{})
+		err := initsystem.InitClient().RemoveObject(context.Background(), bucketName, object.Key, minio.RemoveObjectOptions{})
 		if err != nil {
 			log.Println("删除对象失败:", err)
 		} else {

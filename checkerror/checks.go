@@ -5,9 +5,9 @@ import (
 	"os"
 )
 
-func CheckCodeError(codeerror error) {
-	if codeerror != nil {
-		fmt.Println("Error: ", codeerror)
+func CheckCodeError(runner error) {
+	if runner != nil {
+		fmt.Println("Error: ", runner)
 		os.Exit(-1)
 	}
 }

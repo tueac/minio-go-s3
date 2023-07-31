@@ -1,11 +1,14 @@
 package initsystem
 
-var (
+const (
+	//认证信息
 	EndpointAddr    = "server:port"
 	AccessKeyID     = "you_id"
 	SecretAccessKey = "you_sak"
 	UseSSL          = false
-	Version         = "0.1"
-	BucketName      = ""
-	FileName        = ""
+)
+
+var (
+	//常用变量
+	Version = "0.1"
 )

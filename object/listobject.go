@@ -9,12 +9,17 @@ import (
 )
 
 func ListObject() {
-	bucketname := os.Args[3]
+	if len(os.Args) < 4 {
+		fmt.Println("请输入 bucket 的名称")
+		return
+	}
+
+	bucketName := os.Args[3]
 	ctx, cancel := context.WithCancel(context.Background())
 
 	defer cancel()
 
-	objectCh := initsystem.InitClient().ListObjects(ctx, bucketname, minio.ListObjectsOptions{
+	objectCh := initsystem.InitClient().ListObjects(ctx, bucketName, minio.ListObjectsOptions{
 		Prefix: "",
 		//Recursive: true,
 	})

@@ -12,11 +12,19 @@ import (
 )
 
 func PutDir() {
-	bucketname := os.Args[3]
-	dirname := os.Args[4]
+	if len(os.Args) < 4 {
+		fmt.Println("请输入 bucket 的名称与本地文件夹目录路径")
+		return
+	} else if len(os.Args) < 5 {
+		fmt.Println("本地文件夹目录路径")
+		return
+	}
+
+	bucketName := os.Args[3]
+	dirName := os.Args[4]
 
 	// 遍历文件夹并逐个上传文件
-	walkerr := filepath.Walk(dirname, func(path string, info fs.FileInfo, err error) error {
+	walkerr := filepath.Walk(dirName, func(path string, info fs.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
@@ -27,7 +35,7 @@ func PutDir() {
 		}
 
 		// 上传文件到 MinIO 存储桶
-		_, err = initsystem.InitClient().FPutObject(context.Background(), bucketname, path, path, minio.PutObjectOptions{})
+		_, err = initsystem.InitClient().FPutObject(context.Background(), bucketName, path, path, minio.PutObjectOptions{})
 		if err != nil {
 			log.Println("上传文件失败", err)
 		} else {

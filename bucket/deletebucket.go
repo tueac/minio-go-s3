@@ -9,10 +9,15 @@ import (
 )
 
 func DeleteBucket() {
-	bucketname := os.Args[3]
+	if len(os.Args) < 4 {
+		fmt.Println("请输入 bucket 的名称")
+		return
+	}
 
-	err := initsystem.InitClient().RemoveBucket(context.Background(), bucketname)
+	bucketName := os.Args[3]
+
+	err := initsystem.InitClient().RemoveBucket(context.Background(), bucketName)
 	checkerror.CheckCodeError(err)
 
-	fmt.Printf("%s 删除成功\n", bucketname)
+	fmt.Printf("%s 删除成功\n", bucketName)
 }
